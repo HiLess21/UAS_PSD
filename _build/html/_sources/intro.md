@@ -1,4 +1,4 @@
-# Selamat datang di notebook saya
+# Selamat datang di notebook Holis
 
 [Klik disini](https://huggingface.co/spaces/holisticaree/PSD) untuk menuju ke aplikasi saya.
 
