@@ -1,0 +1,1319 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Klasifikasi Penyakit Kulit Dengan Metode Gaussian Naive Bayes &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'klasifikasi';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
+    <img src="_static/logo.png" class="logo__image only-dark pst-js-only" alt="My sample book - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Selamat datang di notebook Holis
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="PrediksiCabai.html">Prediksi Harga Cabai Rawit Hijau Dengan Metode Bagging dan Regresi Linear</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fklasifikasi.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/klasifikasi.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Klasifikasi Penyakit Kulit Dengan Metode Gaussian Naive Bayes</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#business-understanding">Business Understanding</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tujuan-proyek">Tujuan Proyek</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#manfaat-bisnis">Manfaat Bisnis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kpi-key-performance-indicators">KPI (Key Performance Indicators)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-understanding">Data Understanding</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deskripsi-dataset">Deskripsi Dataset</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preparation">Data Preparation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#load-data">Load Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-data">Visualisasi Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preprocessing">Data Preprocessing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mencari-missing-value">Mencari Missing Value</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mengecek-data-duplikat">Mengecek Data Duplikat</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resize-data">Resize Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-processing">Data Processing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#normalisasi-data">Normalisasi Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#augmentasi-data">Augmentasi Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-data-setelah-augmentasi">Menghitung Data Setelah Augmentasi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ekstraksi-fitur-pca">Ekstraksi Fitur PCA</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelling">Modelling</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="klasifikasi-penyakit-kulit-dengan-metode-gaussian-naive-bayes">
+<h1>Klasifikasi Penyakit Kulit Dengan Metode Gaussian Naive Bayes<a class="headerlink" href="#klasifikasi-penyakit-kulit-dengan-metode-gaussian-naive-bayes" title="Link to this heading">#</a></h1>
+<section id="business-understanding">
+<h2>Business Understanding<a class="headerlink" href="#business-understanding" title="Link to this heading">#</a></h2>
+<section id="tujuan-proyek">
+<h3>Tujuan Proyek<a class="headerlink" href="#tujuan-proyek" title="Link to this heading">#</a></h3>
+<p>Masalah yang ingin dipecahkan:<br />
+Diagnosis penyakit kulit sering kali membutuhkan keahlian medis dan waktu yang tidak sedikit. Dengan menggunakan model klasifikasi berbasis gambar, proses ini dapat dipercepat dan akurasi dapat ditingkatkan.</p>
+<p>Tujuan Utama:<br />
+Mengembangkan model klasifikasi otomatis untuk mendeteksi jenis penyakit kulit berdasarkan gambar.<br />
+Meningkatkan efisiensi diagnosis untuk dokter dan tenaga medis.</p>
+</section>
+<section id="manfaat-bisnis">
+<h3>Manfaat Bisnis<a class="headerlink" href="#manfaat-bisnis" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Bagi Tenaga Medis (Dokter/Spesialis):<br />
+Mempercepat proses diagnosis dengan memberikan second opinion berbasis model otomatis.<br />
+Membantu dokter mengidentifikasi penyakit dengan lebih konsisten, terutama dalam kasus yang sulit.<br />
+Mengurangi beban kerja dokter pada fasilitas kesehatan dengan pasien yang banyak.</p></li>
+</ol>
+<ol class="arabic simple" start="2">
+<li><p>Bagi Pasien:<br />
+Meningkatkan akses ke diagnosis awal, terutama bagi pasien di daerah terpencil tanpa spesialis kulit.<br />
+Membantu pasien memahami kondisi kulit mereka sebelum berkonsultasi langsung dengan dokter.</p></li>
+</ol>
+<ol class="arabic simple" start="3">
+<li><p>Bagi Institusi Kesehatan:<br />
+Mengurangi waktu tunggu diagnosis di klinik dan rumah sakit.<br />
+Membantu dalam program pencegahan dan edukasi kesehatan dengan menggunakan teknologi.</p></li>
+</ol>
+<ol class="arabic simple" start="4">
+<li><p>Bagi Peneliti atau Industri Teknologi:<br />
+Memberikan dataset dan model yang dapat diadaptasi untuk berbagai penyakit kulit di masa depan.<br />
+Memajukan penggunaan teknologi AI dalam bidang kesehatan.</p></li>
+</ol>
+</section>
+<section id="kpi-key-performance-indicators">
+<h3>KPI (Key Performance Indicators)<a class="headerlink" href="#kpi-key-performance-indicators" title="Link to this heading">#</a></h3>
+<p>Akurasi Model: Berapa persentase diagnosis yang benar oleh model.<br />
+Precision dan Recall: Kinerja untuk masing-masing kelas penyakit.<br />
+Fleksibilitas Model: Kemampuan model menangani gambar dari berbagai kualitas atau sumber.</p>
+</section>
+</section>
+<section id="data-understanding">
+<h2>Data Understanding<a class="headerlink" href="#data-understanding" title="Link to this heading">#</a></h2>
+<section id="deskripsi-dataset">
+<h3>Deskripsi Dataset<a class="headerlink" href="#deskripsi-dataset" title="Link to this heading">#</a></h3>
+<p>Kolom id_image:<br />
+Tipe data: String atau file path.<br />
+Deskripsi: Nama atau lokasi file gambar pada dataset.</p>
+<p>Kolom dx:<br />
+Tipe data: Kategorikal.<br />
+Deskripsi: Label penyakit kulit berdasarkan diagnosis medis.</p>
+</section>
+</section>
+<section id="data-preparation">
+<h2>Data Preparation<a class="headerlink" href="#data-preparation" title="Link to this heading">#</a></h2>
+<section id="load-data">
+<h3>Load Data<a class="headerlink" href="#load-data" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Membaca DataSet</span>
+<span class="n">Data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;C:/SEMESTER 5/BIGDATA/bigdata/Klasifikasi GNB/HAM10000_metadata.csv&quot;</span><span class="p">)</span>
+<span class="n">Data</span> <span class="o">=</span> <span class="n">Data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;lesion_id&#39;</span><span class="p">,</span> <span class="s1">&#39;dx_type&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">,</span><span class="s1">&#39;sex&#39;</span><span class="p">,</span><span class="s1">&#39;localization&#39;</span><span class="p">])</span>
+<span class="n">Data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>image_id</th>
+      <th>dx</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>ISIC_0027419</td>
+      <td>bkl</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ISIC_0025030</td>
+      <td>bkl</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>ISIC_0026769</td>
+      <td>bkl</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>ISIC_0025661</td>
+      <td>bkl</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>ISIC_0031633</td>
+      <td>bkl</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>10010</th>
+      <td>ISIC_0033084</td>
+      <td>akiec</td>
+    </tr>
+    <tr>
+      <th>10011</th>
+      <td>ISIC_0033550</td>
+      <td>akiec</td>
+    </tr>
+    <tr>
+      <th>10012</th>
+      <td>ISIC_0033536</td>
+      <td>akiec</td>
+    </tr>
+    <tr>
+      <th>10013</th>
+      <td>ISIC_0032854</td>
+      <td>akiec</td>
+    </tr>
+    <tr>
+      <th>10014</th>
+      <td>ISIC_0032258</td>
+      <td>mel</td>
+    </tr>
+  </tbody>
+</table>
+<p>10015 rows × 2 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Data</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(10015, 2)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Dataset terdiri dari 10015 data dan 2 kolom yaitu :</p>
+<ul class="simple">
+<li><p>Image_id = Gambar lesi</p></li>
+<li><p>Dx = Diagnosis dari image_id</p></li>
+</ul>
+</section>
+<section id="visualisasi-data">
+<h3>Visualisasi Data<a class="headerlink" href="#visualisasi-data" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># membuat grafik batang</span>
+<span class="n">Data</span><span class="p">[</span><span class="s1">&#39;dx&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">rot</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Jumlah diagnosis berdasarkan diagnosis &#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Diagnosis&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Jumlah&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/0e6de612ddcabdcd956235ccc1aba8dd498e5d891d9a67577eadd916a74e485e.png" src="_images/0e6de612ddcabdcd956235ccc1aba8dd498e5d891d9a67577eadd916a74e485e.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Mengetahui kelas unik</span>
+<span class="n">Class_dx</span> <span class="o">=</span> <span class="n">Data</span><span class="p">[</span><span class="s1">&#39;dx&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+<span class="n">Jumlah_classes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">Class_dx</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Kelas dx: </span><span class="si">{</span><span class="n">Class_dx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Jumlah kelas: </span><span class="si">{</span><span class="n">Jumlah_classes</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Kelas dx: [&#39;bkl&#39; &#39;nv&#39; &#39;df&#39; &#39;mel&#39; &#39;vasc&#39; &#39;bcc&#39; &#39;akiec&#39;]
+Jumlah kelas: 7
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">jumlah</span> <span class="o">=</span> <span class="n">Data</span><span class="p">[</span><span class="s1">&#39;dx&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="n">jumlah</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dx
+nv       6705
+mel      1113
+bkl      1099
+bcc       514
+akiec     327
+vasc      142
+df        115
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Terdapat 7 class pada dx yaitu [‘bkl’ ‘nv’ ‘df’ ‘mel’ ‘vasc’ ‘bcc’ ‘akiec’]</p>
+<ul class="simple">
+<li><p><strong>bkl</strong> (Benign Keratosis Like Lesion) -&gt; Lesi ini terlihat mirip dengan keratosis, biasanya merupakan lesi jinak yang dapat muncul sebagai bercak-bercak yang bersisik.</p></li>
+<li><p><strong>nv</strong> (Nevus) -&gt; tahi lalat berwarna coklat atau hitam</p></li>
+<li><p><strong>df</strong> (Dermatofibroma) -&gt; tumor jinak yang terbentuk dari sel-sel fibrosa dan sering muncul sebagai benjolan kecil di kulit.</p></li>
+<li><p><strong>mel</strong> (Melanoma) -&gt; jenis kanker kulit yang paling serius, yang berkembang dari sel-sel penghasil pigmen (melanosit).</p></li>
+<li><p><strong>vasc</strong> (Vascular Lesions) -&gt; Lesi ini berkaitan dengan pembuluh darah dan dapat termasuk kondisi seperti hemangioma (benjolan berwarna merah) atau telangiektasia (pembuluh darah yang melebar).</p></li>
+<li><p><strong>bcc</strong> (Basal Cell Carcinoma) -&gt; Ini adalah jenis kanker kulit yang paling umum dan berasal dari sel-sel basal di lapisan epidermis.</p></li>
+<li><p><strong>akiec</strong> (Actinic Keratosis) -&gt; lesi yang muncul pada kulit yang terpapar sinar matahari dan dapat berisiko berkembang menjadi kanker kulit.</p></li>
+</ul>
+</section>
+</section>
+<section id="data-preprocessing">
+<h2>Data Preprocessing<a class="headerlink" href="#data-preprocessing" title="Link to this heading">#</a></h2>
+<section id="mencari-missing-value">
+<h3>Mencari Missing Value<a class="headerlink" href="#mencari-missing-value" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Memeriksa missing value</span>
+<span class="n">missing_values</span> <span class="o">=</span> <span class="n">Data</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Jumlah misssing value setiap kolom:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">missing_values</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jumlah misssing value setiap kolom:
+image_id    0
+dx          0
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="mengecek-data-duplikat">
+<h3>Mengecek Data Duplikat<a class="headerlink" href="#mengecek-data-duplikat" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># data duplikat berdasarkan &#39;lesion_id&#39;</span>
+<span class="n">duplikat_lesion</span> <span class="o">=</span> <span class="n">Data</span><span class="o">.</span><span class="n">duplicated</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s1">&#39;image_id&#39;</span><span class="p">)</span>
+<span class="n">jumlah_duplikat_lesion</span> <span class="o">=</span> <span class="n">duplikat_lesion</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Jumlah data duplikat : </span><span class="si">{</span><span class="n">jumlah_duplikat_lesion</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jumlah data duplikat : 0
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="resize-data">
+<h3>Resize Data<a class="headerlink" href="#resize-data" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+
+<span class="c1"># Menentukan direktori tempat gambar berada</span>
+<span class="n">directories</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;C:/SEMESTER 5/BIGDATA/bigdata/Klasifikasi GNB/HAM10000_images_part_1&quot;</span><span class="p">),</span>
+               <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;C:/SEMESTER 5/BIGDATA/bigdata/Klasifikasi GNB/HAM10000_images_part_2&quot;</span><span class="p">)]</span>
+
+<span class="c1"># Mendapatkan ukuran gambar pertama sebagai ukuran referensi</span>
+<span class="n">reference_size</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">all_same_size</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="c1"># Iterasi melalui semua direktori</span>
+<span class="k">for</span> <span class="n">directory</span> <span class="ow">in</span> <span class="n">directories</span><span class="p">:</span>
+    <span class="c1"># Iterasi melalui semua file di direktori</span>
+    <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">((</span><span class="s1">&#39;.png&#39;</span><span class="p">,</span> <span class="s1">&#39;.jpg&#39;</span><span class="p">,</span> <span class="s1">&#39;.jpeg&#39;</span><span class="p">)):</span>  <span class="c1"># Memeriksa format gambar</span>
+            <span class="n">img_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">img_path</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="n">reference_size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">reference_size</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">size</span>
+                
+            <span class="k">if</span> <span class="n">img</span><span class="o">.</span><span class="n">size</span> <span class="o">!=</span> <span class="n">reference_size</span><span class="p">:</span>
+                <span class="n">all_same_size</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Gambar </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2"> di </span><span class="si">{</span><span class="n">directory</span><span class="si">}</span><span class="s2"> tidak memiliki ukuran yang sama: </span><span class="si">{</span><span class="n">img</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">all_same_size</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Semua gambar memiliki ukuran yang sama:&quot;</span><span class="p">,</span> <span class="n">reference_size</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tidak semua gambar memiliki ukuran yang sama.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Semua gambar memiliki ukuran yang sama: (600, 450)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="data-processing">
+<h2>Data Processing<a class="headerlink" href="#data-processing" title="Link to this heading">#</a></h2>
+<section id="normalisasi-data">
+<h3>Normalisasi Data<a class="headerlink" href="#normalisasi-data" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> 
+
+<span class="k">def</span> <span class="nf">normalize_image</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
+    <span class="c1"># Mengubah gambar ke array NumPy</span>
+    <span class="n">img_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">image</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float32&#39;</span><span class="p">)</span>
+    <span class="c1"># Normalisasi piksel ke rentang 0 hingga 1</span>
+    <span class="n">normalized_img</span> <span class="o">=</span> <span class="n">img_array</span> <span class="o">/</span> <span class="mf">255.0</span>
+    <span class="k">return</span> <span class="n">normalized_img</span>
+
+<span class="c1"># Iterasi melalui semua direktori</span>
+<span class="k">for</span> <span class="n">directory</span> <span class="ow">in</span> <span class="n">directories</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">((</span><span class="s1">&#39;.png&#39;</span><span class="p">,</span> <span class="s1">&#39;.jpg&#39;</span><span class="p">,</span> <span class="s1">&#39;.jpeg&#39;</span><span class="p">)):</span>
+            <span class="n">img_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">img_path</span><span class="p">)</span>
+            
+            <span class="c1"># Normalisasi gambar</span>
+            <span class="n">normalized_img</span> <span class="o">=</span> <span class="n">normalize_image</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="n">line</span> <span class="mi">18</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">img_path</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="c1"># Normalisasi gambar</span>
+<span class="ne">---&gt; </span><span class="mi">18</span> <span class="n">normalized_img</span> <span class="o">=</span> <span class="n">normalize_image</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+
+<span class="nn">Cell In[9], line 5,</span> in <span class="ni">normalize_image</span><span class="nt">(image)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="k">def</span> <span class="nf">normalize_image</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="c1"># Mengubah gambar ke array NumPy</span>
+<span class="ne">----&gt; </span><span class="mi">5</span>     <span class="n">img_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">image</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float32&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="c1"># Normalisasi piksel ke rentang 0 hingga 1</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span>     <span class="n">normalized_img</span> <span class="o">=</span> <span class="n">img_array</span> <span class="o">/</span> <span class="mf">255.0</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="augmentasi-data">
+<h3>Augmentasi Data<a class="headerlink" href="#augmentasi-data" title="Link to this heading">#</a></h3>
+<p>Menyeimbangkan jumlah data per kelas menjadi 2000 data per kelas</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageOps</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+
+<span class="c1"># Path ke file CSV yang berisi nama file gambar dan label</span>
+<span class="n">labels_csv</span> <span class="o">=</span> <span class="s1">&#39;HAM10000_metadata.csv&#39;</span>
+
+<span class="c1"># Folder tempat gambar-gambar berada</span>
+<span class="n">image_folders</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;C:/SEMESTER 5/BIGDATA/bigdata/Klasifikasi GNB/HAM10000_images_part_1&quot;</span><span class="p">),</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;C:/SEMESTER 5/BIGDATA/bigdata/Klasifikasi GNB/HAM10000_images_part_2&quot;</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="c1"># Folder tujuan untuk gambar yang sudah di-augmentasi</span>
+<span class="n">output_folder</span> <span class="o">=</span> <span class="s1">&#39;Augmented&#39;</span>
+<span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">output_folder</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Baca dataset</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">labels_csv</span><span class="p">)</span>
+
+<span class="c1"># Jumlah target per kelas</span>
+<span class="n">target_sample_size</span> <span class="o">=</span> <span class="mi">2000</span>
+
+<span class="c1"># Fungsi untuk menyalin gambar asli ke folder output</span>
+<span class="k">def</span> <span class="nf">copy_original_images</span><span class="p">(</span><span class="n">image_id</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">folder</span> <span class="ow">in</span> <span class="n">image_folders</span><span class="p">:</span>
+        <span class="n">src_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">image_id</span> <span class="o">+</span> <span class="s1">&#39;.jpg&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">src_path</span><span class="p">):</span>
+            <span class="n">dest_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">image_id</span> <span class="o">+</span> <span class="s1">&#39;.jpg&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">dest_path</span><span class="p">):</span>  <span class="c1"># Salin hanya jika belum ada</span>
+                <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">src_path</span><span class="p">,</span> <span class="n">dest_path</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span>
+
+<span class="c1"># Fungsi untuk augmentasi gambar</span>
+<span class="k">def</span> <span class="nf">augment_image</span><span class="p">(</span><span class="n">image_path</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">,</span> <span class="n">image_id</span><span class="p">,</span> <span class="n">augment_count</span><span class="p">):</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">image_path</span><span class="p">)</span>
+    <span class="n">augmented_images</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">augment_count</span><span class="p">):</span>
+        <span class="c1"># Pilih transformasi augmentasi secara acak</span>
+        <span class="n">transform</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;flip&#39;</span><span class="p">,</span> <span class="s1">&#39;rotate&#39;</span><span class="p">,</span> <span class="s1">&#39;mirror&#39;</span><span class="p">,</span> <span class="s1">&#39;color&#39;</span><span class="p">])</span>
+        
+        <span class="k">if</span> <span class="n">transform</span> <span class="o">==</span> <span class="s1">&#39;flip&#39;</span><span class="p">:</span>
+            <span class="n">augmented</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">FLIP_LEFT_RIGHT</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">transform</span> <span class="o">==</span> <span class="s1">&#39;rotate&#39;</span><span class="p">:</span>
+            <span class="n">angle</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+            <span class="n">augmented</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">transform</span> <span class="o">==</span> <span class="s1">&#39;mirror&#39;</span><span class="p">:</span>
+            <span class="n">augmented</span> <span class="o">=</span> <span class="n">ImageOps</span><span class="o">.</span><span class="n">mirror</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">transform</span> <span class="o">==</span> <span class="s1">&#39;color&#39;</span><span class="p">:</span>
+            <span class="n">augmented</span> <span class="o">=</span> <span class="n">ImageOps</span><span class="o">.</span><span class="n">autocontrast</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        
+        <span class="c1"># Simpan augmented image</span>
+        <span class="n">augmented_filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">image_id</span><span class="si">}</span><span class="s2">_aug_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">.jpg&quot;</span>
+        <span class="n">augmented</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">augmented_filename</span><span class="p">))</span>
+        <span class="n">augmented_images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">augmented_filename</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">augmented_images</span>
+
+<span class="c1"># Augmentasi dan sampling per kelas</span>
+<span class="n">final_data</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">class_name</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;dx&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
+    <span class="n">class_images</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;dx&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">class_name</span><span class="p">][</span><span class="s1">&#39;image_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    
+    <span class="c1"># Salin gambar asli ke folder output</span>
+    <span class="k">for</span> <span class="n">img_id</span> <span class="ow">in</span> <span class="n">class_images</span><span class="p">:</span>
+        <span class="n">copy_original_images</span><span class="p">(</span><span class="n">img_id</span><span class="p">,</span> <span class="n">output_folder</span><span class="p">)</span>
+    
+    <span class="c1"># Kumpulkan semua gambar dalam kelas ini</span>
+    <span class="n">available_images</span> <span class="o">=</span> <span class="p">[</span><span class="n">img</span> <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">output_folder</span><span class="p">)</span> <span class="k">if</span> <span class="n">img</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">class_images</span><span class="p">))]</span>
+    <span class="n">current_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">available_images</span><span class="p">)</span>
+    
+    <span class="c1"># Jika kurang, lakukan augmentasi</span>
+    <span class="k">if</span> <span class="n">current_count</span> <span class="o">&lt;</span> <span class="n">target_sample_size</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Kelas &#39;</span><span class="si">{</span><span class="n">class_name</span><span class="si">}</span><span class="s2">&#39; memiliki </span><span class="si">{</span><span class="n">current_count</span><span class="si">}</span><span class="s2"> gambar. Melakukan augmentasi tambahan.&quot;</span><span class="p">)</span>
+        <span class="n">augment_count</span> <span class="o">=</span> <span class="n">target_sample_size</span> <span class="o">-</span> <span class="n">current_count</span>
+        <span class="k">for</span> <span class="n">img_id</span> <span class="ow">in</span> <span class="n">class_images</span><span class="p">:</span>
+            <span class="n">src_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_folder</span><span class="p">,</span> <span class="n">img_id</span> <span class="o">+</span> <span class="s1">&#39;.jpg&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">src_path</span><span class="p">):</span>
+                <span class="n">augmented_images</span> <span class="o">=</span> <span class="n">augment_image</span><span class="p">(</span><span class="n">src_path</span><span class="p">,</span> <span class="n">output_folder</span><span class="p">,</span> <span class="n">img_id</span><span class="p">,</span> <span class="n">augment_count</span><span class="p">)</span>
+                <span class="n">available_images</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">augmented_images</span><span class="p">)</span>
+                <span class="n">augment_count</span> <span class="o">-=</span> <span class="nb">len</span><span class="p">(</span><span class="n">augmented_images</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">augment_count</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">break</span>
+    
+    <span class="c1"># Jika lebih dari target, lakukan sampling</span>
+    <span class="n">sampled_images</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">available_images</span><span class="p">,</span> <span class="n">target_sample_size</span><span class="p">)</span>
+    
+    <span class="c1"># Simpan data ke final_data</span>
+    <span class="k">for</span> <span class="n">img_file</span> <span class="ow">in</span> <span class="n">sampled_images</span><span class="p">:</span>
+        <span class="n">img_id</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">img_file</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">final_data</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;image_id&#39;</span><span class="p">:</span> <span class="n">img_id</span><span class="p">,</span> <span class="s1">&#39;dx&#39;</span><span class="p">:</span> <span class="n">class_name</span><span class="p">})</span>
+
+<span class="c1"># Simpan hasil ke CSV</span>
+<span class="n">final_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">final_data</span><span class="p">)</span>
+<span class="n">output_csv</span> <span class="o">=</span> <span class="s1">&#39;final_dataset.csv&#39;</span>
+<span class="n">final_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_csv</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Proses sampling selesai. Dataset dengan 2000 gambar per kelas disimpan di &#39;final_dataset.csv&#39;.&quot;</span><span class="p">)</span>
+
+<span class="c1"># Sinkronisasi folder Augmented dengan file final_dataset.csv</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sinkronisasi folder Augmented dengan final_dataset.csv...&quot;</span><span class="p">)</span>
+<span class="n">valid_images</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">final_df</span><span class="p">[</span><span class="s1">&#39;image_id&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;.jpg&#39;</span><span class="p">)</span>
+
+<span class="c1"># Hapus gambar yang tidak ada di final_dataset.csv</span>
+<span class="k">for</span> <span class="n">img_file</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">output_folder</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">img_file</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">valid_images</span><span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_folder</span><span class="p">,</span> <span class="n">img_file</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Folder Augmented telah disinkronkan. Berisi </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">valid_images</span><span class="p">)</span><span class="si">}</span><span class="s2"> gambar yang sesuai dengan final_dataset.csv.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Kelas &#39;bkl&#39; memiliki 1099 gambar. Melakukan augmentasi tambahan.
+Kelas &#39;df&#39; memiliki 115 gambar. Melakukan augmentasi tambahan.
+Kelas &#39;mel&#39; memiliki 1113 gambar. Melakukan augmentasi tambahan.
+Kelas &#39;vasc&#39; memiliki 142 gambar. Melakukan augmentasi tambahan.
+Kelas &#39;bcc&#39; memiliki 514 gambar. Melakukan augmentasi tambahan.
+Kelas &#39;akiec&#39; memiliki 327 gambar. Melakukan augmentasi tambahan.
+Proses sampling selesai. Dataset dengan 2000 gambar per kelas disimpan di &#39;final_dataset.csv&#39;.
+Sinkronisasi folder Augmented dengan final_dataset.csv...
+Folder Augmented telah disinkronkan. Berisi 14000 gambar yang sesuai dengan final_dataset.csv.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="menghitung-data-setelah-augmentasi">
+<h3>Menghitung Data Setelah Augmentasi<a class="headerlink" href="#menghitung-data-setelah-augmentasi" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Menghitung jumlah data per kelas setelah augmentasi</span>
+<span class="n">augmented_data_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">final_data</span><span class="p">)</span>
+
+<span class="c1"># Menghitung jumlah gambar per kelas setelah augmentasi</span>
+<span class="n">jumlah_after_augmentation</span> <span class="o">=</span> <span class="n">augmented_data_df</span><span class="p">[</span><span class="s1">&#39;dx&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+
+<span class="c1"># Menampilkan hasil</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Jumlah data setelah augmentasi:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">jumlah_after_augmentation</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jumlah data setelah augmentasi:
+dx
+bkl      2000
+nv       2000
+df       2000
+mel      2000
+vasc     2000
+bcc      2000
+akiec    2000
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="ekstraksi-fitur-pca">
+<h3>Ekstraksi Fitur PCA<a class="headerlink" href="#ekstraksi-fitur-pca" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">io</span><span class="p">,</span> <span class="n">color</span>
+<span class="kn">from</span> <span class="nn">skimage.transform</span> <span class="kn">import</span> <span class="n">resize</span>
+<span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+
+<span class="c1"># Folder tempat gambar hasil augmented berada</span>
+<span class="n">image_folder</span> <span class="o">=</span> <span class="s1">&#39;C:/SEMESTER 5/BIGDATA/bigdata/Klasifikasi GNB/Augmented&#39;</span>
+
+<span class="c1"># File CSV hasil augmented</span>
+<span class="n">augmented_csv</span> <span class="o">=</span> <span class="s1">&#39;C:/SEMESTER 5/BIGDATA/bigdata/Klasifikasi GNB/final_dataset.csv&#39;</span>
+
+<span class="c1"># Membaca data dari CSV</span>
+<span class="n">augmented_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">augmented_csv</span><span class="p">)</span>
+
+<span class="c1"># Fungsi untuk preprocessing gambar</span>
+<span class="k">def</span> <span class="nf">process_image</span><span class="p">(</span><span class="n">image_path</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">)):</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">image_path</span><span class="p">)</span>
+    <span class="n">hsv_image</span> <span class="o">=</span> <span class="n">color</span><span class="o">.</span><span class="n">rgb2hsv</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>  <span class="c1"># Konversi ke HSV</span>
+    <span class="n">resized_image</span> <span class="o">=</span> <span class="n">resize</span><span class="p">(</span><span class="n">hsv_image</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">anti_aliasing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">resized_image</span>
+
+<span class="c1"># Fungsi untuk ekstraksi fitur HSV</span>
+<span class="k">def</span> <span class="nf">extract_hsv_features</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
+    <span class="n">h_channel</span> <span class="o">=</span> <span class="n">image</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">s_channel</span> <span class="o">=</span> <span class="n">image</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">v_channel</span> <span class="o">=</span> <span class="n">image</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">2</span><span class="p">]</span>
+    
+    <span class="c1"># Hitung statistik dasar untuk setiap channel</span>
+    <span class="n">h_mean</span><span class="p">,</span> <span class="n">h_std</span> <span class="o">=</span> <span class="n">h_channel</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">h_channel</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+    <span class="n">s_mean</span><span class="p">,</span> <span class="n">s_std</span> <span class="o">=</span> <span class="n">s_channel</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">s_channel</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+    <span class="n">v_mean</span><span class="p">,</span> <span class="n">v_std</span> <span class="o">=</span> <span class="n">v_channel</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">v_channel</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+    
+    <span class="c1"># Gabungkan fitur</span>
+    <span class="n">features</span> <span class="o">=</span> <span class="p">[</span><span class="n">h_mean</span><span class="p">,</span> <span class="n">h_std</span><span class="p">,</span> <span class="n">s_mean</span><span class="p">,</span> <span class="n">s_std</span><span class="p">,</span> <span class="n">v_mean</span><span class="p">,</span> <span class="n">v_std</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">features</span>
+
+<span class="c1"># List untuk menyimpan fitur dan label</span>
+<span class="n">feature_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">label_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">image_ids</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># Ekstraksi fitur dari setiap gambar</span>
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">augmented_df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">img_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">image_folder</span><span class="p">,</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;image_id&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;.jpg&#39;</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">img_path</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File gambar tidak ditemukan: </span><span class="si">{</span><span class="n">img_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">continue</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Preprocessing gambar</span>
+        <span class="n">processed_image</span> <span class="o">=</span> <span class="n">process_image</span><span class="p">(</span><span class="n">img_path</span><span class="p">)</span>
+
+        <span class="c1"># Ekstraksi fitur</span>
+        <span class="n">features</span> <span class="o">=</span> <span class="n">extract_hsv_features</span><span class="p">(</span><span class="n">processed_image</span><span class="p">)</span>
+
+        <span class="c1"># Simpan fitur dan label</span>
+        <span class="n">feature_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+        <span class="n">label_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;dx&#39;</span><span class="p">])</span>
+        <span class="n">image_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;image_id&#39;</span><span class="p">])</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Terjadi kesalahan saat memproses </span><span class="si">{</span><span class="n">img_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Konversi ke array NumPy</span>
+<span class="n">features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">feature_list</span><span class="p">)</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">label_list</span><span class="p">)</span>
+
+<span class="c1"># Standardisasi fitur</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">features</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+
+<span class="c1"># Split data</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">id_train</span><span class="p">,</span> <span class="n">id_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">features</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">image_ids</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+<span class="p">)</span>
+
+<span class="c1"># PCA</span>
+<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">()</span>
+<span class="n">X_train_pca</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+
+<span class="c1"># Analisis explained variance ratio</span>
+<span class="n">explained_variance_ratio</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_ratio_</span><span class="p">)</span>
+<span class="n">optimal_components</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">explained_variance_ratio</span> <span class="o">&gt;=</span> <span class="mf">0.95</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Jumlah komponen untuk 95% varians: </span><span class="si">{</span><span class="n">optimal_components</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Terapkan PCA dengan jumlah komponen optimal</span>
+<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="n">optimal_components</span><span class="p">)</span>
+<span class="n">X_train_pca</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">X_test_pca</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># Simpan hasil PCA ke DataFrame</span>
+<span class="n">train_pca_features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;image_id&#39;</span><span class="p">:</span> <span class="n">id_train</span><span class="p">,</span>
+    <span class="s1">&#39;dx&#39;</span><span class="p">:</span> <span class="n">y_train</span><span class="p">,</span>
+    <span class="s1">&#39;pca_features&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">X_train_pca</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="n">test_pca_features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;image_id&#39;</span><span class="p">:</span> <span class="n">id_test</span><span class="p">,</span>
+    <span class="s1">&#39;dx&#39;</span><span class="p">:</span> <span class="n">y_test</span><span class="p">,</span>
+    <span class="s1">&#39;pca_features&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">X_test_pca</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="c1"># Simpan ke CSV</span>
+<span class="n">train_pca_output_csv</span> <span class="o">=</span> <span class="s1">&#39;pca_features_train.csv&#39;</span>
+<span class="n">test_pca_output_csv</span> <span class="o">=</span> <span class="s1">&#39;pca_features_test.csv&#39;</span>
+
+<span class="n">train_pca_features</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">train_pca_output_csv</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">test_pca_features</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">test_pca_output_csv</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ekstraksi fitur PCA selesai.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hasil PCA disimpan ke </span><span class="si">{</span><span class="n">train_pca_output_csv</span><span class="si">}</span><span class="s2"> dan </span><span class="si">{</span><span class="n">test_pca_output_csv</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Bentuk X_train_pca: </span><span class="si">{</span><span class="n">X_train_pca</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Bentuk X_test_pca: </span><span class="si">{</span><span class="n">X_test_pca</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jumlah komponen untuk 95% varians: 6
+Ekstraksi fitur PCA selesai.
+Hasil PCA disimpan ke pca_features_train.csv dan pca_features_test.csv.
+Bentuk X_train_pca: (11200, 6)
+Bentuk X_test_pca: (2800, 6)
+</pre></div>
+</div>
+</div>
+</div>
+<p>mereduksi dimensi dan mempertahankan 6 komponen</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_ratio_</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_ratio_</span><span class="p">),</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Cumulative Explained Variance by PCA Components&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Number of Principal Components&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Cumulative Explained Variance&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/497db3dab5329c4ef0153d7c77a64a6a7e088e1f7bdb8912cc6e99f4229229d4.png" src="_images/497db3dab5329c4ef0153d7c77a64a6a7e088e1f7bdb8912cc6e99f4229229d4.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="modelling">
+<h2>Modelling<a class="headerlink" href="#modelling" title="Link to this heading">#</a></h2>
+<p>melatih model dan evaluasi model</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">LabelEncoder</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">accuracy_score</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">confusion_matrix</span>
+<span class="kn">import</span> <span class="nn">streamlit</span> <span class="k">as</span> <span class="nn">st</span>
+
+<span class="c1"># Membaca data latih dan data uji</span>
+<span class="n">train_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;C:/SEMESTER 5/BIGDATA/bigdata/Klasifikasi GNB/pca_features_train.csv&#39;</span><span class="p">)</span>
+<span class="n">test_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;C:/SEMESTER 5/BIGDATA/bigdata/Klasifikasi GNB/pca_features_test.csv&#39;</span><span class="p">)</span>
+
+<span class="c1"># Encode label target</span>
+<span class="n">label_encoder</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
+<span class="n">train_df</span><span class="p">[</span><span class="s1">&#39;dx_encoded&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">label_encoder</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">train_df</span><span class="p">[</span><span class="s1">&#39;dx&#39;</span><span class="p">])</span>
+<span class="n">test_df</span><span class="p">[</span><span class="s1">&#39;dx_encoded&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">label_encoder</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">test_df</span><span class="p">[</span><span class="s1">&#39;dx&#39;</span><span class="p">])</span>
+
+<span class="c1"># Siapkan fitur dan target untuk data latih</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">train_df</span><span class="p">[</span><span class="s1">&#39;pca_features&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">eval</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">train_df</span><span class="p">[</span><span class="s1">&#39;dx_encoded&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1"># Siapkan fitur dan target untuk data uji</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">test_df</span><span class="p">[</span><span class="s1">&#39;pca_features&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">eval</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">test_df</span><span class="p">[</span><span class="s1">&#39;dx_encoded&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1"># Buat dan latih model Gaussian Naive Bayes</span>
+<span class="n">gnb_model</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+<span class="n">gnb_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Prediksi</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">gnb_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># Evaluasi model</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Akurasi: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="w"> </span><span class="n">y_pred</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2"> %&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Laporan Klasifikasi:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">target_names</span><span class="o">=</span><span class="n">label_encoder</span><span class="o">.</span><span class="n">classes_</span><span class="p">))</span>
+
+
+<span class="c1"># Menghitung laporan klasifikasi (precision, recall, f1-score)</span>
+<span class="n">classification_rep</span> <span class="o">=</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">target_names</span><span class="o">=</span><span class="n">label_encoder</span><span class="o">.</span><span class="n">classes_</span><span class="p">,</span> <span class="n">output_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Menghitung confusion matrix</span>
+<span class="n">conf_matrix</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+
+<span class="c1"># Menampilkan hasil di Jupyter Notebook</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+
+
+<span class="c1"># Tampilkan confusion matrix sebagai heatmap untuk visualisasi</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">conf_matrix</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">,</span> <span class="n">xticklabels</span><span class="o">=</span><span class="n">label_encoder</span><span class="o">.</span><span class="n">classes_</span><span class="p">,</span> <span class="n">yticklabels</span><span class="o">=</span><span class="n">label_encoder</span><span class="o">.</span><span class="n">classes_</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Confusion Matrix&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Predicted&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;True&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Akurasi: 73.57 %
+Laporan Klasifikasi:
+               precision    recall  f1-score   support
+
+       akiec       0.76      0.86      0.81       393
+         bcc       0.71      0.76      0.73       386
+         bkl       0.59      0.70      0.64       407
+          df       0.97      0.90      0.93       402
+         mel       0.61      0.52      0.56       396
+          nv       0.64      0.68      0.66       398
+        vasc       0.94      0.75      0.83       418
+
+    accuracy                           0.74      2800
+   macro avg       0.75      0.74      0.74      2800
+weighted avg       0.75      0.74      0.74      2800
+</pre></div>
+</div>
+<img alt="_images/2d3678144f80c1f9f1e030a4d69adeb1e5c4fbc562d4262ce464287321499142.png" src="_images/2d3678144f80c1f9f1e030a4d69adeb1e5c4fbc562d4262ce464287321499142.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#business-understanding">Business Understanding</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tujuan-proyek">Tujuan Proyek</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#manfaat-bisnis">Manfaat Bisnis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kpi-key-performance-indicators">KPI (Key Performance Indicators)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-understanding">Data Understanding</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deskripsi-dataset">Deskripsi Dataset</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preparation">Data Preparation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#load-data">Load Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-data">Visualisasi Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preprocessing">Data Preprocessing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mencari-missing-value">Mencari Missing Value</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mengecek-data-duplikat">Mengecek Data Duplikat</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resize-data">Resize Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-processing">Data Processing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#normalisasi-data">Normalisasi Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#augmentasi-data">Augmentasi Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-data-setelah-augmentasi">Menghitung Data Setelah Augmentasi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ekstraksi-fitur-pca">Ekstraksi Fitur PCA</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelling">Modelling</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

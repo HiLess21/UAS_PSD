@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Prediksi Harga cabai &#8212; My sample book</title>
+    <title>Prediksi Harga Cabai Rawit Hijau Dengan Metode Bagging dan Regresi Linear &#8212; My sample book</title>
   
   
   
@@ -60,6 +60,8 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'PrediksiCabai';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -168,7 +170,7 @@
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Prediksi Harga cabai</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Prediksi Harga Cabai Rawit Hijau Dengan Metode Bagging dan Regresi Linear</a></li>
 </ul>
 
     </div>
@@ -346,7 +348,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Prediksi Harga cabai</h1>
+    <h1>Prediksi Harga Cabai Rawit Hijau Dengan Metode Bagging dan Regresi Linear</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -366,6 +368,28 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deskripsi-data">Deskripsi Data</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preparation">Data Preparation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-library">Import Library</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#membaca-data">Membaca Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sliding-window-untuk-membentuk-data-supervised">Sliding Window untuk Membentuk Data Supervised</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#membagi-data-menjadi-data-latih-dan-data-uji">Membagi Data Menjadi Data Latih dan Data Uji</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#memastikan-kolom-harga-berisi-data-numerik-dan-tanggal-menjadi-format-datetime">Memastikan Kolom Harga Berisi Data Numerik dan Tanggal Menjadi Format Datetime</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-grafik-harga-cabai">Visualisasi Grafik Harga Cabai</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mengecek-missing-value">Mengecek Missing Value</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preprocessing">Data Preprocessing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#normalisasi-data">Normalisasi Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-processing">Data Processing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ensemble-bagging-dengan-model-dasar-regresi-linear">Ensemble Bagging Dengan Model Dasar Regresi Linear</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regresi-linear-sebagai-model-tunggal">Regresi Linear Sebagai Model Tunggal</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmse">RMSE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mape">MAPE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grafik-perbandingan-prediksi-model-dengan-aktual">Grafik Perbandingan Prediksi Model dengan Aktual</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -377,8 +401,8 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="prediksi-harga-cabai">
-<h1>Prediksi Harga cabai<a class="headerlink" href="#prediksi-harga-cabai" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="prediksi-harga-cabai-rawit-hijau-dengan-metode-bagging-dan-regresi-linear">
+<h1>Prediksi Harga Cabai Rawit Hijau Dengan Metode Bagging dan Regresi Linear<a class="headerlink" href="#prediksi-harga-cabai-rawit-hijau-dengan-metode-bagging-dan-regresi-linear" title="Link to this heading">#</a></h1>
 <section id="business-understanding">
 <h2>Business Understanding<a class="headerlink" href="#business-understanding" title="Link to this heading">#</a></h2>
 <section id="tujuan-proyek">
@@ -448,6 +472,403 @@ Tipe data: Numerik<br />
 Deskripsi: Harga cabai pada hari tertentu (biasanya per kilogram dalam Rupiah).</p>
 </section>
 </section>
+<section id="data-preparation">
+<h2>Data Preparation<a class="headerlink" href="#data-preparation" title="Link to this heading">#</a></h2>
+<section id="import-library">
+<h3>Import Library<a class="headerlink" href="#import-library" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">MinMaxScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">BaggingRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="membaca-data">
+<h3>Membaca Data<a class="headerlink" href="#membaca-data" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Fungsi untuk membaca file CSV dengan pemisah opsional</span>
+<span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">separator</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Membaca file CSV</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="n">separator</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File &#39;</span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&#39; berhasil dimuat.&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Jumlah baris data: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">data</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Terjadi kesalahan saat memuat file: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+<span class="c1"># Contoh penggunaan</span>
+<span class="n">file_path</span> <span class="o">=</span> <span class="s1">&#39;C:/SEMESTER 5/PSD/UAS/Cabai/Tabel Harga Cabai.csv&#39;</span>  <span class="c1"># Ganti dengan path file yang sebenarnya</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">separator</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+
+<span class="c1"># Tampilkan beberapa baris data untuk verifikasi</span>
+<span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>File &#39;C:/SEMESTER 5/PSD/UAS/Cabai/Tabel Harga Cabai.csv&#39; berhasil dimuat.
+Jumlah baris data: 1044
+      Tanggal  Harga
+0  13/10/2020    3.0
+1  14/10/2020    3.0
+2  15/10/2020    3.0
+3  16/10/2020    3.0
+4  19/10/2020    3.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Data terdiri dari 1044 data dengan 2 kolom yaitu kolom Tanggal dan kolom Harga</p>
+</section>
+<section id="sliding-window-untuk-membentuk-data-supervised">
+<h3>Sliding Window untuk Membentuk Data Supervised<a class="headerlink" href="#sliding-window-untuk-membentuk-data-supervised" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fungsi untuk membentuk supervised data dengan sliding window</span>
+<span class="k">def</span> <span class="nf">create_sliding_window</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">window_size</span><span class="p">):</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">-</span> <span class="n">window_size</span><span class="p">):</span>
+        <span class="n">X</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">:(</span><span class="n">i</span> <span class="o">+</span> <span class="n">window_size</span><span class="p">)])</span>
+        <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">window_size</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># Misalkan kita menggunakan data dari kolom harga (ubah sesuai data Anda)</span>
+<span class="n">series</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Harga&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>  <span class="c1"># Ganti &#39;Harga&#39; dengan nama kolom yang relevan</span>
+<span class="n">window_size</span> <span class="o">=</span> <span class="mi">5</span>  <span class="c1"># Misalkan kita gunakan window size 5</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">create_sliding_window</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">window_size</span><span class="p">)</span>
+
+
+<span class="c1"># Menampilkan data supervised</span>
+<span class="n">supervised_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;X</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">window_size</span><span class="p">)])</span>
+<span class="n">supervised_data</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">supervised_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>        X1    X2    X3    X4    X5     y
+0      3.0   3.0   3.0   3.0   3.0   3.0
+1      3.0   3.0   3.0   3.0   3.0   4.0
+2      3.0   3.0   3.0   3.0   4.0   4.0
+3      3.0   3.0   3.0   4.0   4.0   4.0
+4      3.0   3.0   4.0   4.0   4.0   4.0
+...    ...   ...   ...   ...   ...   ...
+1034  15.5  15.5  15.5  15.5  15.5  15.5
+1035  15.5  15.5  15.5  15.5  15.5  16.0
+1036  15.5  15.5  15.5  15.5  16.0  15.5
+1037  15.5  15.5  15.5  16.0  15.5  16.0
+1038  15.5  15.5  16.0  15.5  16.0  16.0
+
+[1039 rows x 6 columns]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Menggunakan 5 data harga untuk memprediksi harga selanjutnya</p>
+</section>
+<section id="membagi-data-menjadi-data-latih-dan-data-uji">
+<h3>Membagi Data Menjadi Data Latih dan Data Uji<a class="headerlink" href="#membagi-data-menjadi-data-latih-dan-data-uji" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Bagi data ke dalam training dan testing</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Print data yang telah dibagi</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">X_train (Data Training):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X_train</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>  <span class="c1"># Print 5 contoh pertama dari data training</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">X_test (Data Testing):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X_test</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>  <span class="c1"># Print 5 contoh pertama dari data testing</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">y_train (Label Training):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y_train</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>  <span class="c1"># Print 5 contoh pertama dari label training</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">y_test (Label Testing):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y_test</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>  <span class="c1"># Print 5 contoh pertama dari label testing</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>X_train (Data Training):
+[[3. 3. 3. 3. 3.]
+ [3. 3. 3. 3. 3.]
+ [3. 3. 3. 3. 4.]
+ [3. 3. 3. 4. 4.]
+ [3. 3. 4. 4. 4.]]
+
+X_test (Data Testing):
+[[17.25 17.25 17.25 17.25 17.25]
+ [17.25 17.25 17.25 17.25 17.25]
+ [17.25 17.25 17.25 17.25 17.25]
+ [17.25 17.25 17.25 17.25 17.25]
+ [17.25 17.25 17.25 17.25 17.25]]
+
+y_train (Label Training):
+[3. 4. 4. 4. 4.]
+
+y_test (Label Testing):
+[17.25 17.25 17.25 17.25 17.  ]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Data dibagi ke dalam 70% data latih dan 30% data uji</p>
+</section>
+<section id="memastikan-kolom-harga-berisi-data-numerik-dan-tanggal-menjadi-format-datetime">
+<h3>Memastikan Kolom Harga Berisi Data Numerik dan Tanggal Menjadi Format Datetime<a class="headerlink" href="#memastikan-kolom-harga-berisi-data-numerik-dan-tanggal-menjadi-format-datetime" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pastikan kolom &#39;Harga&#39; tidak mengandung karakter non-numerik</span>
+<span class="c1"># Hapus karakter seperti koma, mata uang, dll. jika ada</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;Harga&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Harga&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="s1">&#39;,&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;Rp&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">},</span> <span class="n">regex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Mengonversi kolom &#39;Harga&#39; ke tipe float</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;Harga&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Harga&#39;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+
+<span class="c1"># Mengubah kolom &#39;Tanggal&#39; ke format datetime</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;Tanggal&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Tanggal&#39;</span><span class="p">],</span> <span class="n">dayfirst</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+
+<span class="c1"># Periksa apakah konversi berhasil</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Harga&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>float64
+     Tanggal  Harga
+0 2020-10-13    3.0
+1 2020-10-14    3.0
+2 2020-10-15    3.0
+3 2020-10-16    3.0
+4 2020-10-19    3.0
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="visualisasi-grafik-harga-cabai">
+<h3>Visualisasi Grafik Harga Cabai<a class="headerlink" href="#visualisasi-grafik-harga-cabai" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot harga cabai dari waktu ke waktu</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Tanggal&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Harga&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Harga Cabai&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+
+<span class="c1"># Menambahkan judul dan label sumbu</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Pergerakan Harga Cabai dari Waktu ke Waktu&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Tanggal&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Harga Cabai (Rp)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/7b8a24697722dc7243f5e24e1cc3c6cc7c5cec54a67a7d3617debbdc49faeea6.png" src="_images/7b8a24697722dc7243f5e24e1cc3c6cc7c5cec54a67a7d3617debbdc49faeea6.png" />
+</div>
+</div>
+</section>
+<section id="mengecek-missing-value">
+<h3>Mengecek Missing Value<a class="headerlink" href="#mengecek-missing-value" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Mengecek jumlah missing value di setiap kolom</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tanggal    0
+Harga      0
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Tidak terdapat missing value dalam data</p>
+</section>
+</section>
+<section id="data-preprocessing">
+<h2>Data Preprocessing<a class="headerlink" href="#data-preprocessing" title="Link to this heading">#</a></h2>
+<section id="normalisasi-data">
+<h3>Normalisasi Data<a class="headerlink" href="#normalisasi-data" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">MinMaxScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">BaggingRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="c1"># Normalisasi menggunakan Min-Max Scaler</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span>
+
+<span class="c1"># Normalisasi data training</span>
+<span class="n">X_train_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">X_test_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="data-processing">
+<h2>Data Processing<a class="headerlink" href="#data-processing" title="Link to this heading">#</a></h2>
+<section id="ensemble-bagging-dengan-model-dasar-regresi-linear">
+<h3>Ensemble Bagging Dengan Model Dasar Regresi Linear<a class="headerlink" href="#ensemble-bagging-dengan-model-dasar-regresi-linear" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Membuat model bagging dengan Linear Regression sebagai base estimator</span>
+<span class="n">bagging_model</span> <span class="o">=</span> <span class="n">BaggingRegressor</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="n">LinearRegression</span><span class="p">(),</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">bagging_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_scaled</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Prediksi menggunakan model bagging</span>
+<span class="n">y_pred_bagging</span> <span class="o">=</span> <span class="n">bagging_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_scaled</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot hasil prediksi</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Actual&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y_pred_bagging</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Bagging Prediction&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Actual vs Predicted&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/663c6e0e2816bd43ac80ca7d2b155220ffb32ba014ed46307fb651bfe4e321a0.png" src="_images/663c6e0e2816bd43ac80ca7d2b155220ffb32ba014ed46307fb651bfe4e321a0.png" />
+</div>
+</div>
+</section>
+<section id="regresi-linear-sebagai-model-tunggal">
+<h3>Regresi Linear Sebagai Model Tunggal<a class="headerlink" href="#regresi-linear-sebagai-model-tunggal" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Model Linear Regression tunggal</span>
+<span class="n">linear_model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">linear_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_scaled</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Prediksi menggunakan model linear regression</span>
+<span class="n">y_pred_linear</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_scaled</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot hasil prediksi</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Actual&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y_pred_linear</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Linear Regression Prediction&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Actual vs Predicted&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/31e8fef63a09dc2db3e5c5acdd2a7ab7bbf58a312f2692c7e117fd631f80bc46.png" src="_images/31e8fef63a09dc2db3e5c5acdd2a7ab7bbf58a312f2692c7e117fd631f80bc46.png" />
+</div>
+</div>
+</section>
+<section id="rmse">
+<h3>RMSE<a class="headerlink" href="#rmse" title="Link to this heading">#</a></h3>
+<p><span class="math notranslate nohighlight">\(RMSE = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}\)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fungsi menghitung RMSE</span>
+<span class="k">def</span> <span class="nf">rmse</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+
+<span class="c1"># RMSE untuk model Bagging</span>
+<span class="n">rmse_bagging</span> <span class="o">=</span> <span class="n">rmse</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_bagging</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RMSE Bagging: </span><span class="si">{</span><span class="n">rmse_bagging</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># RMSE untuk model Linear Regression</span>
+<span class="n">rmse_linear</span> <span class="o">=</span> <span class="n">rmse</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_linear</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RMSE Linear Regression: </span><span class="si">{</span><span class="n">rmse_linear</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RMSE Bagging: 1.714186237477772
+RMSE Linear Regression: 1.7015281783752465
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="mape">
+<h3>MAPE<a class="headerlink" href="#mape" title="Link to this heading">#</a></h3>
+<p><span class="math notranslate nohighlight">\(\text{MAPE} = \frac{1}{n} \sum_{i=1}^{n} \left| \frac{y_i - \hat{y}_i}{y_i} \right| \times 100\)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fungsi untuk menghitung MAPE</span>
+<span class="k">def</span> <span class="nf">mape</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+    <span class="c1"># Menghindari pembagian dengan 0</span>
+    <span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_true</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+    <span class="n">non_zero_indices</span> <span class="o">=</span> <span class="n">y_true</span> <span class="o">!=</span> <span class="mi">0</span>  <span class="c1"># Menghindari nilai 0 pada y_true</span>
+    <span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span> <span class="o">=</span> <span class="n">y_true</span><span class="p">[</span><span class="n">non_zero_indices</span><span class="p">],</span> <span class="n">y_pred</span><span class="p">[</span><span class="n">non_zero_indices</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">((</span><span class="n">y_true</span> <span class="o">-</span> <span class="n">y_pred</span><span class="p">)</span> <span class="o">/</span> <span class="n">y_true</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span>
+
+<span class="c1"># MAPE untuk model Bagging</span>
+<span class="n">mape_bagging</span> <span class="o">=</span> <span class="n">mape</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_bagging</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MAPE Bagging: </span><span class="si">{</span><span class="n">mape_bagging</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+
+<span class="c1"># MAPE untuk model Linear Regression</span>
+<span class="n">mape_linear</span> <span class="o">=</span> <span class="n">mape</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_linear</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MAPE Linear Regression: </span><span class="si">{</span><span class="n">mape_linear</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MAPE Bagging: 2.79%
+MAPE Linear Regression: 2.77%
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="grafik-perbandingan-prediksi-model-dengan-aktual">
+<h3>Grafik Perbandingan Prediksi Model dengan Aktual<a class="headerlink" href="#grafik-perbandingan-prediksi-model-dengan-aktual" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot hasil prediksi dari kedua model</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Actual&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y_pred_bagging</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Bagging Prediction&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y_pred_linear</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Linear Regression Prediction&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Actual vs Predicted&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/bbb439fe771e4d57d72663483589b2e2bf4b399301f92e4f2b08637d4f1ea9f6.png" src="_images/bbb439fe771e4d57d72663483589b2e2bf4b399301f92e4f2b08637d4f1ea9f6.png" />
+</div>
+</div>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -514,6 +935,28 @@ Deskripsi: Harga cabai pada hari tertentu (biasanya per kilogram dalam Rupiah).<
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-understanding">Data Understanding</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deskripsi-data">Deskripsi Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preparation">Data Preparation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-library">Import Library</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#membaca-data">Membaca Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sliding-window-untuk-membentuk-data-supervised">Sliding Window untuk Membentuk Data Supervised</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#membagi-data-menjadi-data-latih-dan-data-uji">Membagi Data Menjadi Data Latih dan Data Uji</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#memastikan-kolom-harga-berisi-data-numerik-dan-tanggal-menjadi-format-datetime">Memastikan Kolom Harga Berisi Data Numerik dan Tanggal Menjadi Format Datetime</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-grafik-harga-cabai">Visualisasi Grafik Harga Cabai</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mengecek-missing-value">Mengecek Missing Value</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preprocessing">Data Preprocessing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#normalisasi-data">Normalisasi Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-processing">Data Processing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ensemble-bagging-dengan-model-dasar-regresi-linear">Ensemble Bagging Dengan Model Dasar Regresi Linear</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regresi-linear-sebagai-model-tunggal">Regresi Linear Sebagai Model Tunggal</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmse">RMSE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mape">MAPE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grafik-perbandingan-prediksi-model-dengan-aktual">Grafik Perbandingan Prediksi Model dengan Aktual</a></li>
 </ul>
 </li>
 </ul>
