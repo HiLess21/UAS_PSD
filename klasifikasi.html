@@ -63,6 +63,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'klasifikasi';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Prediksi Harga Cabai Rawit Hijau Dengan Metode Bagging dan Regresi Linear" href="PrediksiCabai.html" />
+    <link rel="prev" title="Selamat datang di notebook Holis" href="intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -113,8 +115,6 @@
     <div class="bd-container__inner bd-page-width">
       
       
-      
-        
       
       <dialog id="pst-primary-sidebar-modal"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
@@ -168,8 +168,10 @@
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Klasifikasi Penyakit Kulit Dengan Metode Gaussian Naive Bayes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="PrediksiCabai.html">Prediksi Harga Cabai Rawit Hijau Dengan Metode Bagging dan Regresi Linear</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fix.html">Prediksi Penyewa Sepeda Dengan Metode Random Forest</a></li>
 </ul>
 
     </div>
@@ -770,6 +772,27 @@ dtype: int64
 <span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="c1"># Normalisasi piksel ke rentang 0 hingga 1</span>
 <span class="g g-Whitespace">      </span><span class="mi">7</span>     <span class="n">normalized_img</span> <span class="o">=</span> <span class="n">img_array</span> <span class="o">/</span> <span class="mf">255.0</span>
 
+<span class="nn">File ~\AppData\Local\Programs\Python\Python312\Lib\site-packages\PIL\Image.py:756,</span> in <span class="ni">Image.__array_interface__</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">754</span>     <span class="n">new</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tobytes</span><span class="p">(</span><span class="s2">&quot;raw&quot;</span><span class="p">,</span> <span class="s2">&quot;L&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">755</span> <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">756</span>     <span class="n">new</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tobytes</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">757</span> <span class="n">new</span><span class="p">[</span><span class="s2">&quot;shape&quot;</span><span class="p">],</span> <span class="n">new</span><span class="p">[</span><span class="s2">&quot;typestr&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_conv_type_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">758</span> <span class="k">return</span> <span class="n">new</span>
+
+<span class="nn">File ~\AppData\Local\Programs\Python\Python312\Lib\site-packages\PIL\Image.py:805,</span> in <span class="ni">Image.tobytes</span><span class="nt">(self, encoder_name, *args)</span>
+<span class="g g-Whitespace">    </span><span class="mi">802</span> <span class="k">if</span> <span class="n">encoder_name</span> <span class="o">==</span> <span class="s2">&quot;raw&quot;</span> <span class="ow">and</span> <span class="n">encoder_args</span> <span class="o">==</span> <span class="p">():</span>
+<span class="g g-Whitespace">    </span><span class="mi">803</span>     <span class="n">encoder_args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span>
+<span class="ne">--&gt; </span><span class="mi">805</span> <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">807</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">808</span>     <span class="k">return</span> <span class="sa">b</span><span class="s2">&quot;&quot;</span>
+
+<span class="nn">File ~\AppData\Local\Programs\Python\Python312\Lib\site-packages\PIL\ImageFile.py:300,</span> in <span class="ni">ImageFile.load</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">297</span>         <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">299</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span> <span class="o">+</span> <span class="n">s</span>
+<span class="ne">--&gt; </span><span class="mi">300</span> <span class="n">n</span><span class="p">,</span> <span class="n">err_code</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">301</span> <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">302</span>     <span class="k">break</span>
+
 <span class="ne">KeyboardInterrupt</span>: 
 </pre></div>
 </div>
@@ -1216,6 +1239,24 @@ weighted avg       0.75      0.74      0.74      2800
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Selamat datang di notebook Holis</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="PrediksiCabai.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Prediksi Harga Cabai Rawit Hijau Dengan Metode Bagging dan Regresi Linear</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
